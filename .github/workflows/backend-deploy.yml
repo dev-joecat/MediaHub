@@ -77,4 +77,10 @@ jobs:
           app-name: 'MediaHubAPI'
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
+      # sql migration scripts (for azure sql database)
+      - name: Apply Database Schema
+        run: |
+         sqlcmd -S ${{ secrets.SQL_SERVER }} -U ${{ secrets.SQL_USER }} -P ${{ secrets.SQL_PASSWORD }} -d ${{ secrets.SQL_DB }} -i database/migrations.sql
+    
           
