@@ -1,0 +1,42 @@
+name: Deploy Azure Function App
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on changes to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Deploy Azure Function App
+        uses: Azure/functions-action@v1
+        with:
+          app-name: 'MediaHubAPI'
+          package: './backend'
+          publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+
+      # run SQL migration scripts (for Azure SQL Database)
+      - name: Apply Database Schema
+        run: |
+          sqlcmd -S ${{ secrets.SQL_SERVER }} -U ${{ secrets.SQL_USER }} -P ${{ secrets.SQL_PASSWORD }} -d ${{ secrets.SQL_DB }} -i database/migrations.sql
+
+      # integration tests with Newman (Postman CLI)
+      - name: Run API tests
+        run: |
+          newman run tests/mediahub-api-tests.postman_collection.json
