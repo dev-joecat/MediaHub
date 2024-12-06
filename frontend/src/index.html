@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediaHub Frontend</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Welcome to MediaHub</h1>
+      <p>Your space to share and explore media content!</p>
+    </header>
+
+    <!-- Create Media Form (with file upload) -->
+    <section id="createSection">
+      <h2>Create New Media</h2>
+      <form id="createMediaForm">
+        <label for="mediaTitle">Title</label>
+        <input type="text" id="mediaTitle" name="mediaTitle" placeholder="Enter media title" required>
+        
+        <label for="mediaDescription">Description</label>
+        <textarea id="mediaDescription" name="mediaDescription" placeholder="Enter media description" required></textarea>
+
+        <label for="mediaFile">Upload Media</label>
+        <input type="file" id="mediaFile" name="mediaFile" accept="image/*,video/*" required>
+
+        <button type="submit" class="btn-primary">Create Media</button>
+      </form>
+    </section>
+
+    <!-- Fetch Media Section by ID -->
+    <section id="fetchSection">
+        <h2>Fetch Media by ID</h2>
+        <label for="mediaIdInput">Enter Media ID:</label>
+        <input type="text" id="mediaIdInput" placeholder="Enter media ID to fetch" required>
+        <button id="fetchByIdButton" class="btn-primary">Fetch Media</button>
+  
+        <div id="mediaDisplay" class="media-display">
+          <h2>Media Details:</h2>
+          <pre id="mediaContent"></pre>
+        </div>
+      </section>
+
+    <!-- Update Media Section -->
+    <section id="updateSection">
+        <h2>Update Media</h2>
+        <form id="updateMediaForm">
+        <label for="updateMediaId">Media ID</label>
+        <input type="text" id="updateMediaId" name="updateMediaId" placeholder="Enter media ID to update" required>
+      
+        <label for="updateMediaTitle">Title</label>
+        <input type="text" id="updateMediaTitle" name="updateMediaTitle" placeholder="Enter new media title">
+      
+        <label for="updateMediaDescription">Description</label>
+        <textarea id="updateMediaDescription" name="updateMediaDescription" placeholder="Enter new media description"></textarea>
+  
+        <!-- File input for updating image or video -->
+        <label for="updateMediaFile">Update Media (Image/Video)</label>
+        <input type="file" id="updateMediaFile" name="updateMediaFile" accept="image/*,video/*">
+  
+        <button type="submit" class="btn-primary">Update Media</button>
+        </form>
+    </section>
+
+    <!-- Delete Media Section -->
+    <section id="deleteSection">
+      <h2>Delete Media</h2>
+      <input type="text" id="deleteMediaId" placeholder="Enter media ID to delete" required>
+      <button id="deleteMediaButton" class="btn-primary">Delete Media</button>
+    </section>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

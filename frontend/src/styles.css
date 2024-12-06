@@ -1,0 +1,153 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body Styling */
+body {
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);  /* Deep space colors */
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-size: 400% 400%;
+  animation: gradient-animation 10s ease infinite;
+}
+
+/* Background Gradient Animation */
+@keyframes gradient-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Main Container */
+.container {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.7); /* Slight transparent background */
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+/* Header Section */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+header h1 {
+  font-size: 3rem;
+  color: #d400ff;  /* Glowing blue */
+  text-shadow: 0 0 10px #d400ff, 0 0 20px #d400ff, 0 0 30px #d400ff;
+}
+
+header p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #e0e0e0;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #ff00ff; /* Purple color */
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
+}
+
+.btn-primary:hover {
+  background-color: #8a2be2;  /* Lighter purple */
+  transform: scale(1.05);
+}
+
+/* Form & Input Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #2e2e5d;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border: 2px solid #00bfff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Media Display Section */
+.media-display {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.media-display h2 {
+  font-size: 1.8rem;
+  color: #ff6347;  /* Light Red */
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+pre {
+  background-color: #333;
+  color: #e0e0e0;
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  overflow-x: auto;
+  border: 1px solid #444;
+}
+
+/* Section Styling */
+section {
+  margin-bottom: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  .btn-primary {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .media-display {
+    padding: 15px;
+  }
+}
