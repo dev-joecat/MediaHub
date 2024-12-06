@@ -3,7 +3,7 @@ import azure.functions as func
 from azure.storage.blob import BlobServiceClient
 from azure.cosmos import CosmosClient
 
-# Set connection strings    
+# Set connection strings  
 BLOB_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=mediahubstorageaccount;AccountKey=iJ7V3199fwTKHcwaQPzqHRoKHtBsbi1Os7vKK5SDJNSJgo7Ekfe0qoPioos2/+prp3XdIRuH6Suz+AStc219HQ==;EndpointSuffix=core.windows.net"
 COSMOS_ENDPOINT = "https://mediahub-metadata.documents.azure.com:443/"
 COSMOS_KEY = "A10VDoAG3zKa45pXUQytHBjRCNsWIxm8klOHfOPyOlR6BearC1UNPjqvWqtp5OYAvc7Kl5gWIqXVACDb16RIYQ=="
