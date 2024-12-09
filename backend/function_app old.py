@@ -3,12 +3,12 @@ import azure.functions as func
 from azure.storage.blob import BlobServiceClient
 from azure.cosmos import CosmosClient
 
-# Set connection strings
-BLOB_CONNECTION_STRING = "Your_Blob_Connection_String"
-COSMOS_ENDPOINT = "Your_Cosmos_Endpoint"
-COSMOS_KEY = "Your_Cosmos_Key"
+# Set connection strings  
+BLOB_CONNECTION_STRING = "DefaultEndpointsProtocol=https;AccountName=mediahubstorageaccount;AccountKey=iJ7V3199fwTKHcwaQPzqHRoKHtBsbi1Os7vKK5SDJNSJgo7Ekfe0qoPioos2/+prp3XdIRuH6Suz+AStc219HQ==;EndpointSuffix=core.windows.net"
+COSMOS_ENDPOINT = "https://mediahub-metadata.documents.azure.com:443/"
+COSMOS_KEY = "A10VDoAG3zKa45pXUQytHBjRCNsWIxm8klOHfOPyOlR6BearC1UNPjqvWqtp5OYAvc7Kl5gWIqXVACDb16RIYQ=="
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
+def uploadMedia(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Processing media upload.')
 
     # Get file and metadata from request
@@ -29,7 +29,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     return func.HttpResponse(f"Media uploaded successfully: {blob_client.url}", status_code=201)
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
+def getMedia(req: func.HttpRequest) -> func.HttpResponse:
     media_id = req.route_params.get('id')
 
     cosmos_client = CosmosClient(COSMOS_ENDPOINT, COSMOS_KEY)
@@ -40,7 +40,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     return func.HttpResponse(body=item, status_code=200)
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
+def putMedia(req: func.HttpRequest) -> func.HttpResponse:
     media_id = req.route_params.get('id')
     updated_metadata = req.get_json()
 
@@ -54,7 +54,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     return func.HttpResponse("Metadata updated successfully.", status_code=200)
 
-def main(req: func.HttpRequest) -> func.HttpResponse:
+def deleteMedia(req: func.HttpRequest) -> func.HttpResponse:
     media_id = req.route_params.get('id')
 
     # Delete from Blob Storage
