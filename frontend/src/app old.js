@@ -7,17 +7,14 @@ const fetchByIdButton = document.getElementById('fetchByIdButton');
 const mediaIdInput = document.getElementById('mediaIdInput');
 const mediaContent = document.getElementById('mediaContent');
 const mediaDisplay = document.getElementById('mediaDisplay');
-const updateMediaForm = document.getElementById('updateMediaForm');
-const deleteMediaButton = document.getElementById('deleteMediaButton');
-const deleteMediaIdInput = document.getElementById('deleteMediaId');
 
 // Function to handle Create Media (POST request with file upload)
 const createMedia = async (e) => {
-  e.preventDefault(); // Prevent the form from reloading the page
+  e.preventDefault();  // Prevent the form from reloading the page
 
   const mediaTitle = document.getElementById('mediaTitle').value;
   const mediaDescription = document.getElementById('mediaDescription').value;
-  const mediaFile = document.getElementById('mediaFile').files[0]; // Get the file from the input
+  const mediaFile = document.getElementById('mediaFile').files[0];  // Get the file from the input
 
   const formData = new FormData();
   formData.append('title', mediaTitle);
@@ -25,14 +22,14 @@ const createMedia = async (e) => {
   formData.append('file', mediaFile);
 
   try {
-    const response = await fetch(`${API_URL}/uploadMedia`, {
+    const response = await fetch(`${API_URL}/createMedia`, {
       method: 'POST',
       body: formData,
     });
 
     if (response.ok) {
       const result = await response.json();
-      mediaContent.textContent = `Media uploaded successfully: ${JSON.stringify(result, null, 2)}`;
+      mediaContent.textContent = `Media created successfully: ${JSON.stringify(result)}`;
     } else {
       mediaContent.textContent = `Error: ${response.status}`;
     }
@@ -43,7 +40,7 @@ const createMedia = async (e) => {
 
 // Function to fetch Media by ID (GET request)
 const fetchMediaById = async () => {
-  const mediaId = mediaIdInput.value; // Get the ID entered by the user
+  const mediaId = mediaIdInput.value;  // Get the ID entered by the user
 
   if (!mediaId) {
     mediaContent.textContent = 'Please enter a valid media ID.';
@@ -51,11 +48,11 @@ const fetchMediaById = async () => {
   }
 
   try {
-    const response = await fetch(`${API_URL}/getMedia/${mediaId}`);
+    const response = await fetch(`${API_URL}/getMedia?id=${mediaId}`);
     if (response.ok) {
       const mediaData = await response.json();
       // Display the fetched media details
-      mediaContent.textContent = `Title: ${mediaData.title}\nDescription: ${mediaData.description}\nURL: ${mediaData.url}`;
+      mediaContent.textContent = `Title: ${mediaData.title}\nDescription: ${mediaData.description}`;
     } else {
       mediaContent.textContent = `Error: ${response.status} - Media not found.`;
     }
@@ -66,7 +63,7 @@ const fetchMediaById = async () => {
 
 // Function to handle Update Media (PUT request with file upload)
 const updateMedia = async (e) => {
-  e.preventDefault(); // Prevent the form from reloading the page
+  e.preventDefault();
 
   const mediaId = document.getElementById('selectMediaId').value;
   const mediaTitle = document.getElementById('updateMediaTitle').value;
@@ -74,47 +71,23 @@ const updateMedia = async (e) => {
   const mediaFile = document.getElementById('updateMediaFile').files[0];
 
   const formData = new FormData();
+  formData.append('id', mediaId);
   formData.append('title', mediaTitle);
   formData.append('description', mediaDescription);
 
   if (mediaFile) {
-    formData.append('file', mediaFile); // Include file if provided
+    formData.append('file', mediaFile);
   }
 
   try {
-    const response = await fetch(`${API_URL}/putMedia/${mediaId}`, {
+    const response = await fetch(`${API_URL}/updateMedia`, {
       method: 'PUT',
       body: formData,
     });
 
     if (response.ok) {
-      const result = await response.text(); // Expect plain text response
-      mediaContent.textContent = result;
-    } else {
-      mediaContent.textContent = `Error: ${response.status}`;
-    }
-  } catch (error) {
-    mediaContent.textContent = `Network Error: ${error.message}`;
-  }
-};
-
-// Function to handle Delete Media (DELETE request)
-const deleteMedia = async () => {
-  const mediaId = deleteMediaIdInput.value; // Get the ID entered by the user
-
-  if (!mediaId) {
-    mediaContent.textContent = 'Please enter a valid media ID.';
-    return;
-  }
-
-  try {
-    const response = await fetch(`${API_URL}/deleteMedia/${mediaId}`, {
-      method: 'DELETE',
-    });
-
-    if (response.ok) {
-      const result = await response.text(); // Expect plain text response
-      mediaContent.textContent = result;
+      const result = await response.json();
+      mediaContent.textContent = `Media updated successfully: ${JSON.stringify(result)}`;
     } else {
       mediaContent.textContent = `Error: ${response.status}`;
     }
@@ -127,4 +100,3 @@ const deleteMedia = async () => {
 createMediaForm.addEventListener('submit', createMedia);
 fetchByIdButton.addEventListener('click', fetchMediaById);
 updateMediaForm.addEventListener('submit', updateMedia);
-deleteMediaButton.addEventListener('click', deleteMedia);
